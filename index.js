@@ -37,12 +37,15 @@ app.get('/api/notes/:id', (request, response) => {
 	})
 })
 
-// app.delete('/api/notes/:id', (request, response) => {
-// 	const id = Number(request.params.id)
-// 	notes = notes.filter(note => note.id !== id)
+app.delete('/api/notes/:id', (request, response) => {
+	Note.findById(request.params.id).then(note => {
+		note.deleteOne()
+	})
 
-// 	response.status(204).end()
-// })
+	response.status(204).json({
+		message: 'note deleted'
+	})
+})
 
 app.post('/api/notes', (request, response) => {
 	const body = request.body
